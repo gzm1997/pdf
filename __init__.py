@@ -1,3 +1,5 @@
+# _*_ coding: utf-8 _*_
+
 from flask import Flask
 from flask import render_template
 import os
