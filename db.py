@@ -12,9 +12,9 @@ class Db(object):
         super(Db, self).__init__()
         self.conn = self.get_conn()
     def get_conn(self):
-        environ = os.environ
-        MYSQL_USER = environ["MYSQL_USER"]
-        MYSQL_PASSWORD = environ["MYSQL_PASSWORD"]
+        #environ = os.environ
+        MYSQL_USER = "root"
+        MYSQL_PASSWORD = "Gzm20125"
         conn = mysql.connector.connect(user = MYSQL_USER, password = MYSQL_PASSWORD)
         return conn
 
