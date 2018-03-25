@@ -10,7 +10,7 @@
 ----------
 ## demo ##
 [查看地址][1]
-
+[pdf版本readme地址][2]
 ----------
 ## 前言 ##
 这个是开学前跟别人赌气写下的一个很小的web app，功能是上传pdf文件，然后获得这个文件在线浏览的url，需求很简单。之前为了方便只是把上传到服务器的文件存在flask static文件夹下，会有不便于管理等等问题。这个周末做了如下改进：使用mysql进行存储文件，进行模块的细化。
@@ -41,7 +41,7 @@
 
 ###大概设计###
 
-![struction.png-12.1kB][2]
+![struction.png-12.1kB][3]
 
 
 整个结构呈现cs结构，server我使用nginx，server使用wsgi接口调用flask app
@@ -56,12 +56,12 @@
 ----------
 ## 编码 ##
 
-> 编码情况详细见[github][3]
+> 编码情况详细见[github][4]
 
 
 ----------
 ## 测试与运行 ##
-![pdf.gif-631.7kB][4]
+![pdf.gif-631.7kB][5]
 
 
 ----------
@@ -77,6 +77,7 @@
 
 
   [1]: http://138.68.235.123/upload
-  [2]: http://static.zybuluo.com/gzm1997/5de0ll4jozkxxzntxo20ni2x/struction.png
-  [3]: https://github.com/gzm1997/pdf
-  [4]: http://static.zybuluo.com/gzm1997/v93gqdz11aenv30kisr64r41/pdf.gif
+  [2]: http://138.68.235.123/show?file_name=readme.pdf
+  [3]: http://static.zybuluo.com/gzm1997/5de0ll4jozkxxzntxo20ni2x/struction.png
+  [4]: https://github.com/gzm1997/pdf
+  [5]: http://static.zybuluo.com/gzm1997/v93gqdz11aenv30kisr64r41/pdf.gif
