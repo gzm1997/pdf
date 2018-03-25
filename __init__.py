@@ -28,24 +28,25 @@ def init_db():
 class Upload_file(MethodView):    
     def get(self):
         return '''
-        <!doctype html>
-        <title>Upload new File</title>
-        <h1>Upload new File</h1>
-        <form action="" method=post enctype=multipart/form-data>
-        <p><input type=file name=file>
-            <input type=submit value=Upload>
-        </form>
+            <!doctype html>
+            <title>Upload new File</title>
+            <h1>Upload new File</h1>
+            <form action="" method=post enctype=multipart/form-data>
+                <p>
+                    <input type=file name=file>
+                    <input type=submit value=Upload>
+                </p>
+            </form>
         '''
 
     def post(self):
         file = request.files["file"]
         filename = secure_filename(file.filename)
-        print("filename", filename)
-        print("allowed_file", allowed_file(file.filename))
-        print("check_exists", f.File.check_exists(filename))
+        content = file.stream.read()
+        if len(content) > 16 * pow(2, 20):
+            return "the file is too big to upload, the Maximum length of file is 16m bytes"
         if file and allowed_file(file.filename) and f.File.check_exists(filename):
             print("lala")
-            content = file.stream.read()
             pdf_file = f.File(filename, content)
             if pdf_file.save():
                 return redirect(url_for("show", file_name = filename))
@@ -54,6 +55,8 @@ class Upload_file(MethodView):
         elif file and allowed_file(file.filename) and not f.File.check_exists(filename):
             print("heihei")
             return redirect(url_for("show", file_name = filename))
+        else:
+            return "the file is empty or filename is not allowed"
         
 
 
