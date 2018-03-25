@@ -35,6 +35,7 @@ class Upload_file(MethodView):
                 <p>
                     <input type=file name=file>
                     <input type=submit value=Upload>
+                    <div><p style="color:red; text-align:left">文件名中请勿带有中文</p></div>
                 </p>
             </form>
         '''
