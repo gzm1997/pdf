@@ -25,6 +25,18 @@ class File(db.Db):
             return False
         else:
             return True
+    #更新
+    def update(self):
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute("use pdf;")
+            cursor.execute("update File set content = %s where name = %s;", [self.__content, self.__name])
+            self.conn.commit()
+            cursor.close()
+        except Exception as e:
+            return False
+        else:
+            return True
     #从数据库中按照文件名删除文件
     @staticmethod
     def delete(name):
@@ -40,7 +52,7 @@ class File(db.Db):
             return True
     #从数据库中读取文件为bytes
     @staticmethod
-    def get_binayry_pdf_data_from_database(name):
+    def get_binayry_file_data_from_database(name):
         try:
             cursor = db.db.conn.cursor(dictionary = True)
             cursor.execute("use pdf;")

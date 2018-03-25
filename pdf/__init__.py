@@ -3,15 +3,16 @@ from flask import Flask
 from flask import render_template
 from flask import make_response
 from flask.views import MethodView
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect, url_for, Markup
 from werkzeug import secure_filename
 import random, string
+import markdown
 import os
 import pdf.db
 import pdf.f
 
 #设置允许上传的文件类型为pdf
-ALLOWED_EXTENSIONS = set(['pdf'])
+ALLOWED_EXTENSIONS = set(['pdf', 'md'])
 #声明一个flask应用
 app = Flask(__name__)
 #判断文件名是否合法
@@ -55,8 +56,12 @@ class Upload_file(MethodView):
                 return "upload failed!"
         #如果从文件名中得知已经上传了
         elif file and allowed_file(file.filename) and not f.File.check_exists(filename):
-            print("heihei")
-            return redirect(url_for("show", file_name = filename))
+            #print("heihei")
+            pdf_file = f.File(filename, content)
+            if pdf_file.update():
+                return redirect(url_for("show", file_name = filename))
+            else:
+                return "update failed!"
         else:
             return "the file is empty or filename is not allowed"
 #将视图对象转为视图函数
@@ -65,11 +70,17 @@ app.add_url_rule("/upload", view_func = Upload_file.as_view("upload"))
 @app.route("/show")
 def show():
     file_name = request.args.get("file_name")
-    pdf = f.File.get_binayry_pdf_data_from_database(file_name)
-    response = make_response(pdf)
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'inline; filename=%s.pdf' % file_name
-    return response
+    if file_name[-3:] == "pdf":
+        pdf = f.File.get_binayry_file_data_from_database(file_name)
+        response = make_response(pdf)
+        response.headers['Content-Type'] = 'application/pdf'
+        response.headers['Content-Disposition'] = 'inline; filename=%s.pdf' % file_name
+        return response
+    elif file_name[-2:] == "md":
+        md = Markup(markdown.markdown(f.File.get_binayry_file_data_from_database(file_name).decode("utf-8"), ['extra']))
+        return render_template('index.html', content = md)
+    else:
+        return "type of file is wrong!"
     
 
 if __name__ == "__main__":
