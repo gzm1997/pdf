@@ -13,6 +13,8 @@ class Db(object):
         self.conn = self.get_conn()
     def get_conn(self):
         #environ = os.environ
+        #MYSQL_USER = os.environ["MYSQL_USER"]
+        #MYSQL_PASSWORD = os.environ["MYSQL_PASSWORD"]
         MYSQL_USER = "root"
         MYSQL_PASSWORD = "Gzm20125"
         conn = mysql.connector.connect(user = MYSQL_USER, password = MYSQL_PASSWORD)
