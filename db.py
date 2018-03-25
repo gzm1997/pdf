@@ -1,11 +1,7 @@
+# _*_ coding: utf-8 _*_
 import mysql.connector
 import os
-
-"""
-MYSQL_USER
-MYSQL_PASSWORD
-"""
-
+#Db对象，内含一个mysql连接
 class Db(object):
     """docstring for Db"""
     def __init__(self):
@@ -19,11 +15,7 @@ class Db(object):
         MYSQL_PASSWORD = "Gzm20125"
         conn = mysql.connector.connect(user = MYSQL_USER, password = MYSQL_PASSWORD)
         return conn
-
-
-
-
-
+#初始化数据库
 def init_db():
     db = Db()
     conn = db.conn
@@ -39,8 +31,7 @@ def init_db():
     ")
     conn.commit()
     cursor.close()
-
-
+#声明一个Db实例
 db = Db()
 
 if __name__ == "__main__":

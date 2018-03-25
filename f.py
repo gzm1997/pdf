@@ -1,5 +1,6 @@
+# _*_ coding: utf-8 _*_
 import pdf.db as db
-
+#文件对象
 class File(db.Db):
     """docstring for File"""
     def __init__(self, name, content):
@@ -12,7 +13,7 @@ class File(db.Db):
     @property
     def content(self):
         return self.__content
-
+    #将文件对象保存到数据库中
     def save(self):
         try:
             cursor = self.conn.cursor()
@@ -24,7 +25,7 @@ class File(db.Db):
             return False
         else:
             return True
-
+    #从数据库中按照文件名删除文件
     @staticmethod
     def delete(name):
         try:
@@ -37,7 +38,7 @@ class File(db.Db):
             return False
         else:
             return True
-    
+    #从数据库中读取文件为bytes
     @staticmethod
     def get_binayry_pdf_data_from_database(name):
         try:
@@ -52,6 +53,7 @@ class File(db.Db):
             return b""
         else:
             return content["content"]
+    #按照文件名来判断文件是否已经被上传
     @staticmethod
     def check_exists(name):
         try:
@@ -68,8 +70,6 @@ class File(db.Db):
                 return True
             else:
                 return False
-        
-
 
 
 if __name__ == "__main__":
