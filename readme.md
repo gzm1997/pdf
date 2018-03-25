@@ -38,8 +38,12 @@
 
 ----------
 ## 设计 ##
+
 ###大概设计###
+
 ![struction.png-12.1kB][2]
+
+
 整个结构呈现cs结构，server我使用nginx，server使用wsgi接口调用flask app
 
 ###详细设计###
